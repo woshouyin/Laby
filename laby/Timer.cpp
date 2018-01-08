@@ -6,6 +6,10 @@ Timer::Timer(int pause) {
 	Timer::lastTick = GetTickCount();
 }
 
+Timer::~Timer() {
+
+}
+
 bool Timer::Loop() {
 	int tick = GetTickCount();
 	if (tick - lastTick >= pause) {

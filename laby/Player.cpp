@@ -86,9 +86,30 @@ bool Player::Attack() {
 	DWORD nowTick = GetTickCount();
 	int dx = x;
 	int dy = y;
+	bool wall = false;
 	Player *dp = NULL;
 	if (AttackAble()) {
 		lastAtTick = nowTick;
+
+		switch (face) {
+		case V_UP:
+			wall = map->GetAWall(x, y);
+			break;
+		case V_DOWN:
+			wall = map->GetAWall(x, y + 1);
+			break;
+		case V_LEFT:
+			wall = map->GetBWall(x, y);
+			break;
+		case V_RIGHT:
+			wall = map->GetBWall(x + 1, y);
+			break;
+		default:
+			wall = false;
+			break;
+		}
+		if (wall) return false;
+		
 		switch (face)
 		{
 		case V_UP:

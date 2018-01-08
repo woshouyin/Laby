@@ -13,3 +13,8 @@ void DrawLine(HDC hdc, int x0, int y0, int x1, int y1, int width, COLORREF color
 void DrawRect(HDC hdc, int x0, int y0, int x1, int y1, int width, COLORREF color);
 void DrawBmp(HDC hdc, HBITMAP hbmp, int x, int y, int dWidth1, int dHeight, int u, int v, int sWidth, int sHeight, UINT crTransparent); 
 void DrawHealth(HDC hdc, int x, int y, int width, int height, COLORREF color, int health, int maxHealth);
+void DrawNumber(HDC hdc, HBITMAP numsBmp, int num, int x, int y, int width, int height, int numWidth, int numHeight);
+void DrawSNumber(HDC hdc, HBITMAP numsBmp, int num, int x, int y, int width, int height, int numWidth, int numHeight);
+void FillRectA(HDC hdc, int x1, int y1, int x2, int y2, COLORREF color);
+void DrawDNumber(HDC hdc, HBITMAP numsBmp, int num, int x, int y, int width, int height, int numWidth, int numHeight);
+

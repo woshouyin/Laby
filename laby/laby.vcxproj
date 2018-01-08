@@ -111,14 +111,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AStar.cpp" />
     <ClCompile Include="laby.cpp" />
     <ClCompile Include="LabyWindow.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MapRender.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="TreeMapRender.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AStar.h" />
     <ClInclude Include="def.h" />
     <ClInclude Include="LabyWindow.h" />
     <ClInclude Include="Map.h" />
@@ -126,6 +129,7 @@
     <ClInclude Include="MapRender.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="TreeMapRender.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -17,13 +17,14 @@ int WINAPI WinMain(_In_ HINSTANCE hinstance
 
 	AllocConsole();
 	freopen_s(&stream, "conout$", "w", stdout);
-	Map *m = new Map(1);
-	m->CreateRandomMap(GetTickCount());
+	Map *m = new Map(MAPSIZE);
+	//m->CreateRandomMap(GetTickCount());
 	LabyWindow *lw = new LabyWindow(hinstance, "Laby", 950, 830, m);
-	Player ps[2] = { Player(0,0,0,20), Player(1,5,5,20) };
+	Player ps[2] = { Player(0,0,0,20), Player(1,0,MAPEDGE - 1,20) };
 	m->addPlayers(ps, 2);
 	lw->RegisterPlayerImg(0, "player1.bmp");
 	lw->RegisterPlayerImg(1, "player2.bmp");
+	lw->InitBG();
 	lw->Init();
 	lw->Run();
 
@@ -35,12 +36,13 @@ int WINAPI WinMain(_In_ HINSTANCE hinstance
 }
 
 DWORD WINAPI Draw(LabyWindow *lw) {
-	while (true) {
+	while (lw->running) {
 		//cout << "Draw" << endl;
 		BitBlt(lw->hdcMem, 0, 0, lw->width, lw->height, lw->hdcBG, 0, 0, SRCCOPY);
 		lw->Paint();
-		BitBlt(lw->hdc, 0, 0, lw->width, lw->height, lw->hdcMem, 0, 0, SRCCOPY);
+		BitBlt(lw->hdcShow, 0, 0, lw->width, lw->height, lw->hdcMem, 0, 0, SRCCOPY);
 	}
+	lw->CheckStop();
 	return 0;
 }
 
@@ -82,4 +84,45 @@ void DrawHealth(HDC hdc, int x, int y, int width, int height, COLORREF color, in
 	FillRect(hdc, &rect, hbr);
 
 	DeleteObject(hbr);
+}
+
+void DrawNumber(HDC hdc, HBITMAP numsBmp, int num, int x, int y, int width, int height, int numWidth, int numHeight)
+{
+	int n = num;
+	int b = 0;
+	int p = 0;
+	while (n = n/10) {
+		b++;
+	}
+	for (int i = 0; i <= b; i++) {
+		n = num % 10;
+		DrawBmp(hdc, numsBmp, x + (b - i) * width, y, width, height, n * numWidth, 0, numWidth, numHeight, RGB(255, 255, 255));
+		num = num / 10;
+	}
+
+}
+
+void DrawSNumber(HDC hdc, HBITMAP numsBmp, int num, int x, int y, int width, int height, int numWidth, int numHeight)
+{
+	DrawBmp(hdc, numsBmp, x, y, width, height, num * numWidth, 0, numWidth, numHeight, RGB(255, 255, 255));
+}
+
+void FillRectA(HDC hdc, int x1, int y1, int x2, int y2, COLORREF color)
+{
+	HBRUSH hbr = CreateSolidBrush(color);
+	RECT rc;
+	rc.top = y1;
+	rc.left = x1;
+	rc.right = x2;
+	rc.bottom = y2;
+
+	FillRect(hdc, &rc, hbr);
+	DeleteObject(hbr);
+}
+
+void DrawDNumber(HDC hdc, HBITMAP numsBmp, int num, int x, int y, int width, int height, int numWidth, int numHeight)
+{
+	int i = num / 10;
+	DrawBmp(hdc, numsBmp, x, y, width, height, i * numWidth, 0, numWidth, numHeight, RGB(255, 255, 255));
+	DrawBmp(hdc, numsBmp, x + width, y, width, height, num % 10 * numWidth, 0, numWidth, numHeight, RGB(255, 255, 255));
 }

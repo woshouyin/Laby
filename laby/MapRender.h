@@ -7,8 +7,8 @@ public:
 	long seed;
 	Map *map;
 	MapRender(long seed, Map *map);
-	~MapRender();
-	void CreateMap(int startX, int startY);
-private:
+	virtual ~MapRender();
+	virtual void CreateMap(int startX, int startY);
+protected:
 	void CreateSafeFrame();
 };

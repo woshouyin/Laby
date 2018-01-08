@@ -13,23 +13,16 @@ MapRender::MapRender(long seed, Map* map) {
 
 MapRender::~MapRender() {
 }
-
 void MapRender::CreateMap(int startX, int startY) {
 	srand(seed);
-	for (int i = 0; i < size; i++) {
-		for (int t = 0; t < size + 1; t++) {
-
-			//map->SetAWall(i, t, 1);
-			//map->SetBWall(t, i, 1);
-
-			map->SetAWall(i, t, rand() % 3 == 1 && rand() % 3 == 2);
-			map->SetBWall(t, i, rand() % 3 == 1 && rand() % 3 == 2);
+	for (int i = 0; i < 32; i++) {
+		for (int t = 0; t < 33; t++) {
+			map->SetAWall(i, t, 1);
+			map->SetBWall(t, i, 1);
 		}
 	}
-
-
-	MapRender::CreateSafeFrame();
 }
+
 
 void MapRender::CreateSafeFrame() {
 	for (int i = 0; i < size; i++) {

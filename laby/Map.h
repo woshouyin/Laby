@@ -5,6 +5,7 @@ class Map {
 public:
 	static Player *players;
 	static int playerNum;
+	static int size;
 	Map(int size);
 	~Map();
 	void addPlayers(Player* players, int playerNum);
@@ -16,9 +17,7 @@ public:
 	int GetEdge();
 	void SetAWall(int x, int y, bool wall);
 	void SetBWall(int x, int y, bool wall);
-
 private:
-	int size;
 	int *a;
 	int *b;
 	int *GetAUnit(int x, int y);

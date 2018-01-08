@@ -3,20 +3,17 @@
 #include "Player.h"
 #include "LabyWindow.h"
 #include "MapRender.h"
+#include "TreeMapRender.h"
 
 Player *Map::players = NULL;
 int Map::playerNum = 0;
+int Map::size = 0;
 
 Map::Map(int size) {
 	Map::size = size;
-	do {
-		a = (int *)malloc((8 * sizeof(int)*size + 1)*size * sizeof(int));
-		b = (int *)malloc((8 * sizeof(int)*size + 1)*size * sizeof(int));
-		if (!a || !b) {
-			free(a);
-			free(b);
-		}
-	} while (!a || !b);
+	a = (int *)malloc((8 * sizeof(int)*size + 1)*size * sizeof(int));
+	b = (int *)malloc((8 * sizeof(int)*size + 1)*size * sizeof(int));
+	if (a == NULL || b == NULL) return;
 	for (int i = 0; i < size * (size + 1); i++) {
 		*(a + i) = 0;
 		*(b + i) = 0;
@@ -74,8 +71,11 @@ void Map::SetBWall(int x, int y, bool wall) {
 }
 
 void Map::CreateRandomMap(long seed) {
-	MapRender mr(seed, this);
-	mr.CreateMap(32,16);
+	//srand(GetTickCount());
+	//mr->CreateMap(rand() % 32, rand() % 32);
+	MapRender *mr = new TreeMapRender(seed, this);
+	mr->CreateMap(rand() % MAPSIZE, rand() % MAPSIZE);
+	delete mr;
 	return;
 }
 
