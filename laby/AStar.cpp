@@ -3,7 +3,7 @@
 #include <iostream>
 #include "AStar.h"
 #include "map.h"
-
+//zhangdeshuaimeibanfa
 LPNODE CreateLpn(int g, int h, int x, int y, LPNODE father) {
 	LPNODE lpn = new NODE;
 	lpn->f = g + h;
